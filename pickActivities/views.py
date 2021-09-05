@@ -19,8 +19,8 @@ def matchup(request):
     [option1RowNum,option2RowNum] = random.sample(optionNums,2)
     option1Title = sheet.cell(row=option1RowNum,column=1).value
     option2Title = sheet.cell(row=option2RowNum,column=1).value
-    pic1 = Image.open('pickActivities/static/pickActivities/' + option1Title + '.png')
-    pic2 = Image.open('pickActivities/static/pickActivities/' + option2Title + '.png')
+    pic1 = Image.open('pickActivities/' + option1Title + '.png')
+    pic2 = Image.open('pickActivities/' + option2Title + '.png')
    
     pic1.save('pickActivities/static/pickActivities/pic1.png')
     pic2.save('pickActivities/static/pickActivities/pic2.png')
