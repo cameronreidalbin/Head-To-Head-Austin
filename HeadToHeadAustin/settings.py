@@ -25,7 +25,7 @@ SECRET_KEY = '6@4087t-9e9d3$x@&j112y!wsiq6-@g)d9wrm0ltfl%g6%+%4e'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['stark-meadow-18039.herokuapp.com']
+ALLOWED_HOSTS = ['stark-meadow-18039.herokuapp.com','127.0.0.1']
 
 
 # Application definition
@@ -127,13 +127,11 @@ STATIC_TMP = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 os.makedirs(STATIC_TMP, exist_ok=True)
 os.makedirs(STATIC_ROOT, exist_ok=True)
-STATICFILES_DIRS = (
-os.path.join(BASE_DIR, 'static'),
-)
+#STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
-#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Heroku: Update database configuration from $DATABASE_URL.
 import dj_database_url
