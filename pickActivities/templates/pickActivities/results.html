@@ -1,0 +1,18 @@
+<ul>
+<header>
+  <h1>Here's What People Would Rather Do</h1>
+</header>
+
+<hr>
+
+<p>
+  {% load static %}
+  <img src="{% static 'pickActivities/graph.png' %}" class="center">
+</p>
+
+<hr>
+
+
+<form action="/pickActivities/" method="get">
+  <input type="submit" id="winner" name="winner" value="More Matchups">
+</form>

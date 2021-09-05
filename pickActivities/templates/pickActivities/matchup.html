@@ -1,0 +1,29 @@
+<ul>
+<header>
+  <h1>Which would you rather do?</h1>
+</header>
+<hr>
+
+
+<form action="/pickActivities/" method="get">
+  <input type="hidden" id="winner" name="winner" value={{option1RowNum}}>
+  <p>{{option1Title}}</p>
+  <p>
+    {% load static %}
+    <input type="image" src="{% static 'pickActivities/pic1.png' %}" style="width:200px;height:175px">  
+  </p>
+</form>
+
+
+<form action="/pickActivities/" method="get">
+  <input type="hidden" id="winner" name="winner" value={{option2RowNum}}>
+  <p>{{option2Title}}</p>
+  <p>
+    {% load static %}
+    <input type="image" src="{% static 'pickActivities/pic2.png' %}" style="width:200px;height:175px">
+  </p>
+</form>
+
+
+<hr>
+<p><a href="/pickActivities/results/">Enough matchups, show me the results!</a></p>
