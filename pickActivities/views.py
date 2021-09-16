@@ -1,24 +1,23 @@
 from django.shortcuts import render
-import openpyxl
+import ezsheets
 import random
 from PIL import Image
 import matplotlib.pyplot as plt
 
 def matchup(request):
-    book = openpyxl.load_workbook('pickActivities/Head To Head - Austin.xlsx')
+    book = ezsheets.Spreadsheet('1WgW4vMU-keRhkN1hFy9lU0WT044NJslmCwdAoNRRIoQ')
     sheet = book['Sheet1']
     
     try:
-        lastRoundWinnerRowNum = int(request.GET['winner'])
-        sheet.cell(row=lastRoundWinnerRowNum,column=2).value += 1
-        book.save('pickActivities/Head To Head - Austin.xlsx')
+        lastRoundWinnerRowNum = int(request.GET['winner'])       
+        sheet.update(2,lastRoundWinnerRowNum, str(int(sheet.get(2,lastRoundWinnerRowNum))+1) )
     except:
-        pass
-        
-    optionNums = range(2,sheet.max_row+1)
+        pass        
+
+    optionNums = range(2,17)
     [option1RowNum,option2RowNum] = random.sample(optionNums,2)
-    option1Title = sheet.cell(row=option1RowNum,column=1).value
-    option2Title = sheet.cell(row=option2RowNum,column=1).value
+    option1Title = sheet.get(1,option1RowNum)
+    option2Title = sheet.get(1,option2RowNum)
     pic1 = Image.open('pickActivities/static/pickActivities/' + option1Title + '.PNG')
     pic2 = Image.open('pickActivities/static/pickActivities/' + option2Title + '.PNG')
    
@@ -30,15 +29,15 @@ def matchup(request):
 
 
 def results(request):
-    book = openpyxl.load_workbook('pickActivities/Head To Head - Austin.xlsx')
-    sheet = book['Sheet1']  
-    plt.clf()  
+    book = ezsheets.Spreadsheet('1WgW4vMU-keRhkN1hFy9lU0WT044NJslmCwdAoNRRIoQ')
+    sheet = book['Sheet1']
+    plt.clf()
 
     optionTitles = []
     battlesWon = []
-    for rowNum in range(2,sheet.max_row+1):
-        optionTitles += [sheet.cell(row=rowNum,column=1).value]
-        battlesWon += [sheet.cell(row=rowNum,column=2).value]
+    for rowNum in range(2,17):
+        optionTitles += [sheet.get(1,rowNum)]
+        battlesWon += [int(sheet.get(2,rowNum))]
 
     fig, ax = plt.subplots(figsize = (8, 5))
     ax.barh(optionTitles,battlesWon)
