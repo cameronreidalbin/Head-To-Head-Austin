@@ -5,7 +5,7 @@ from PIL import Image
 import matplotlib.pyplot as plt
 
 def matchup(request):
-    book = ezsheets.Spreadsheet('1WgW4vMU-keRhkN1hFy9lU0WT044NJslmCwdAoNRRIoQ')
+    book = ezsheets.Spreadsheet('1Kdx1UyqB5MAltUPViK8Tsl3oB9i4KZXOFsZkvfu4om0')
     sheet = book['Sheet1']
     
     try:
@@ -29,7 +29,7 @@ def matchup(request):
 
 
 def results(request):
-    book = ezsheets.Spreadsheet('1WgW4vMU-keRhkN1hFy9lU0WT044NJslmCwdAoNRRIoQ')
+    book = ezsheets.Spreadsheet('1Kdx1UyqB5MAltUPViK8Tsl3oB9i4KZXOFsZkvfu4om0')
     sheet = book['Sheet1']
     plt.clf()
 
@@ -42,7 +42,7 @@ def results(request):
     fig, ax = plt.subplots(figsize = (8, 5))
     ax.barh(optionTitles,battlesWon)
     ax.invert_yaxis()
-    ax.set_title('What Is The Best Thing To Do In Austin?')
+    ax.set_title('What Vacation Is Most Interesting?')
     plt.savefig('pickActivities/static/pickActivities/graph.PNG', bbox_inches="tight")
 
     return render(request, 'pickActivities/results.html')
