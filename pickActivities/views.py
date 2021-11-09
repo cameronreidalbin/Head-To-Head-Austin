@@ -4,8 +4,12 @@ import random
 from PIL import Image
 import matplotlib.pyplot as plt
 
+spreadsheet_code = '1Kdx1UyqB5MAltUPViK8Tsl3oB9i4KZXOFsZkvfu4om0'
+num_options = 23
+graph_title = 'What Vacation Is Most Interesting?'
+
 def matchup(request):
-    book = ezsheets.Spreadsheet('1Kdx1UyqB5MAltUPViK8Tsl3oB9i4KZXOFsZkvfu4om0')
+    book = ezsheets.Spreadsheet(spreadsheet_code)
     sheet = book['Sheet1']
     
     try:
@@ -14,7 +18,7 @@ def matchup(request):
     except:
         pass        
 
-    optionNums = range(2,17)
+    optionNums = range(2, num_options+2)
     [option1RowNum,option2RowNum] = random.sample(optionNums,2)
     option1Title = sheet.get(1,option1RowNum)
     option2Title = sheet.get(1,option2RowNum)
@@ -34,20 +38,20 @@ def matchup(request):
 
 
 def results(request):
-    book = ezsheets.Spreadsheet('1Kdx1UyqB5MAltUPViK8Tsl3oB9i4KZXOFsZkvfu4om0')
+    book = ezsheets.Spreadsheet(spreadsheet_code)
     sheet = book['Sheet1']
     plt.clf()
 
     optionTitles = []
     battlesWon = []
-    for rowNum in range(2,17):
+    for rowNum in range(2, num_options+2):
         optionTitles += [sheet.get(1,rowNum)]
         battlesWon += [int(sheet.get(2,rowNum))]
 
     fig, ax = plt.subplots(figsize = (8, 5))
     ax.barh(optionTitles,battlesWon)
     ax.invert_yaxis()
-    ax.set_title('What Vacation Is Most Interesting?')
+    ax.set_title(graph_title)
     plt.savefig('pickActivities/static/pickActivities/graph.PNG', bbox_inches="tight")
 
     return render(request, 'pickActivities/results.html')
